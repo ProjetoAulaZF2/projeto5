@@ -54,16 +54,6 @@ class UsuarioTable
         $row    = $rowset->current();
         return $row;
     }
-    
-    public function getUsuarioIdentidade($login)
-    {
-    	$rowset = $this->tableGateway->select(array(
-    			'login' => $login
-    	));
-    	$row = $rowset->current();
-    	
-    	return $row;
-    }
 
     public function salvarUsuario(Usuario $usuario)
     {
@@ -71,13 +61,14 @@ class UsuarioTable
             'nome' => $usuario->nome,
             'email' => $usuario->email,
             'login' => $usuario->login,
-            'senha' => md5($usuario->senha),
+            'id_perfil' => $usuario->perfil->id,
             'ativo' => UsuarioTable::ATIVO
         );
         
         $id = (int) $usuario->id;
         
         if ($id == 0) {
+            $data = $data + array('senha' => md5($usuario->senha));
             $this->tableGateway->insert($data);
         } else {
             if ($this->getUsuario($id)) {

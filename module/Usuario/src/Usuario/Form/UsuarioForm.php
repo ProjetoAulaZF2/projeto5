@@ -5,6 +5,7 @@ use Zend\Form\Form;
 
 class UsuarioForm extends Form
 {
+    protected $perfilTable;
 
     public function __construct($name = null)
     {
@@ -48,6 +49,15 @@ class UsuarioForm extends Form
         				'placeholder' => 'Senha'
         		)
         ));
+        
+        $this->add(array(
+        		'name' => 'id_perfil',
+        		'type'  => 'Select',
+        		'options' => array(
+        				'value_options' =>  $this->getValueOptions()
+        		)
+        ));
+        
         $this->add(array(
             'name' => 'submit',
             'type' => 'Submit',
@@ -57,5 +67,29 @@ class UsuarioForm extends Form
                 'class' => 'btn btn-default'
             )
         ));
+    }
+    
+    private function getPerfilTable()
+    {
+    
+    	if (!$this->perfilTable)
+    	{
+    		$sm = $GLOBALS['sm'];
+    		$this->perfilTable = $sm->get('Usuario\Model\PerfilTable');
+    	}
+    
+    	return $this->perfilTable;
+    }
+    
+    private function getValueOptions()
+    {
+    	$valueOptions =  array( ""  => "Selecione" );
+        $perfils       = $this->getPerfilTable()->fetchAll();
+        
+        foreach ( $perfils as $perfil ){
+        	$valueOptions[$perfil->id] = $perfil->nome;
+        }
+        
+        return $valueOptions; 
     }
 }

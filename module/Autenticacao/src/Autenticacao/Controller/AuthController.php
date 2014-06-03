@@ -66,7 +66,7 @@ class AuthController extends AbstractActionController
                         $this->getAuthService()->setStorage($this->getSessionStorage());
                     }
 
-                    $usuarioLogado  = $this->getUsuarioTable()->getUsuarioIdentidade($request->getPost('autenticar'));
+                    $usuarioLogado  = $this->getUsuarioTable()->getUsuarioIdentidade($request->getPost('login'));
                     $this->getAuthService()->setStorage($this->getSessionStorage());
                     $this->getAuthService()->getStorage()->write($usuarioLogado);
                 }

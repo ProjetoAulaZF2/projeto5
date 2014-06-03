@@ -20,17 +20,23 @@ class Usuario
     public $senha;
 
     public $ativo;
+    
+    public $perfil;
 
     protected $inputFilter;
 
     public function exchangeArray($data)
     {
-        $this->id = (isset($data['id'])) ? $data['id'] : null;
-        $this->nome = (isset($data['nome'])) ? $data['nome'] : null;
-        $this->email = (isset($data['email'])) ? $data['email'] : null;
-        $this->login = (isset($data['login'])) ? $data['login'] : null;
-        $this->senha = (isset($data['senha'])) ? $data['senha'] : null;
-        $this->ativo = (isset($data['ativo'])) ? $data['ativo'] : null;
+        $this->id         = (isset($data['id'])) ? $data['id'] : null;
+        $this->nome       = (isset($data['nome'])) ? $data['nome'] : null;
+        $this->email      = (isset($data['email'])) ? $data['email'] : null;
+        $this->login      = (isset($data['login'])) ? $data['login'] : null;
+        $this->senha      = (isset($data['senha'])) ? $data['senha'] : null;
+        $this->ativo      = (isset($data['ativo'])) ? $data['ativo'] : null;
+        
+        $this->perfil       = new Perfil();
+        $this->perfil->id   = (isset($data['id_perfil'])) ? $data['id_perfil'] : null; 
+        $this->perfil->nome = (isset($data['nome_perfil'])) ? $data['nome_perfil'] : null;
     }
 
     public function setInputFilter(InputFilterInterface $inputFilter)
@@ -90,7 +96,9 @@ class Usuario
             'nome'  => $this->nome,
             'email' => $this->email,
             'login' => $this->login,
-            'ativo' => $this->ativo
+            'ativo' => $this->ativo,
+            'id_perfil' => $this->perfil->id,
+           'nome_perfil' => $this->perfil->nome_perfil,
         );
     }
 }

@@ -50,6 +50,19 @@ return array(
                     ),
                 ),
             ),
+            
+            'deny' => array(
+			    		'type'    => 'segment',
+			    		'options' => array(
+			    				'route'    => '/deny/',
+			    				'constraints' => array(
+			    				),
+			    				'defaults' => array(
+			    						'controller' => 'Application\Controller\Index',
+			    						'action'     => 'deny',
+			    				),
+			    		),
+			    ),
         ),
     ),
     'service_manager' => array(
@@ -62,7 +75,7 @@ return array(
         ),
     ),
     'translator' => array(
-        'locale' => 'en_US',
+        'locale' => 'pt_BR',
         'translation_file_patterns' => array(
             array(
                 'type'     => 'gettext',
