@@ -34,6 +34,11 @@ return array(
     // Perfil de oreia
     array(
         'role' => 2,
+        'resource' => 'home',
+        'privileges' => array()
+    ),
+    array(
+        'role' => 2,
         'resource' => 'autenticar',
         'privileges' => array()
     ),
@@ -45,6 +50,13 @@ return array(
     array(
         'role' => 2,
         'resource' => 'celular',
+        'privileges' => array(
+            'index'
+        )
+    ),
+    array(
+        'role' => 2,
+        'resource' => 'usuario',
         'privileges' => array(
             'index'
         )
