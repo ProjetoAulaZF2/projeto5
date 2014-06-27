@@ -16,7 +16,7 @@ Mudando a autenticação
 
 Primeiro vamos criar nossa tabela de perfil certo?
 segue abaixo o script do banco que estamos utilizando até o momento:
-
+~~~sql
 	CREATE SCHEMA IF NOT EXISTS `db_projeto5` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ;
 
 	CREATE TABLE IF NOT EXISTS `db_projeto5`.`tb_celular` (
@@ -67,11 +67,11 @@ segue abaixo o script do banco que estamos utilizando até o momento:
 
 
 	INSERT INTO `db_projeto5`.`tb_usuario` (`nome`, `email`, `login`, `senha`, id_perfil) VALUES ('Nataniel Paiva', 'nataniel.paiva@gmail.com', 'nataniel.paiva', md5('123'), 1);
-
+~~~
 
 Agora que já temos o nosso banco com a tabela perfil, precisamos mudar um pouco a nossa autenticação.
 Vou deixar por sua conta criar as models de perfil, agora vamos direto para AuthController.php mudando a action autenticarAction com o seguinte código:
-
+~~~php
 	public function autenticarAction()
 	    {
 		$redirect = 'autenticar';
@@ -105,9 +105,9 @@ Vou deixar por sua conta criar as models de perfil, agora vamos direto para Auth
 
 		return $this->redirect()->toRoute($redirect);
 	    }
-
+~~~
 Agora vamos na UsuarioTable criar nosso método getUsuarioIdentidade com o seguinte código:
-
+~~~php
 	public function getUsuarioIdentidade($login)
 	    {
 		$select = new Select();
@@ -120,10 +120,10 @@ Agora vamos na UsuarioTable criar nosso método getUsuarioIdentidade com o segui
 		$row    = $rowset->current();
 		return $row;
 	    }
-
+~~~
 Com o método acima conseguiremos recuperar todos os dados que precisaremos para guardar na configuração do nosso ACL.
 Agora vamos para o Module.php do módulo Application e utilize o seguinte código:
-
+~~~php
 <?php
 namespace Application;
 
@@ -242,10 +242,10 @@ use Zend\Permissions\Acl\Role\GenericRole;
 	    	);
 	    }
 	}
-
+~~~
 Agora precisamos criar o arquivo que o nosso método configurarAcl chama, que está em /config/module.acl.perfis.php
 Vamos criá-lo com o seguinte código:
-
+~~~php
 	<?php
 	return array(
 	    // Perfil de administrador
@@ -295,7 +295,7 @@ Vamos criá-lo com o seguinte código:
 		)
 	    )
 	);
-
+~~~
 Pronto!! Nosso ACL está pronto!!
 De uma forma muito simples!! Temos várias outras formas de criar um acl no Zend 2, mas nesse fiz com que as rotas fossem os resources, mas isso não é obrigatório.
 Você quem decide o que vai ser o resource ou não.
